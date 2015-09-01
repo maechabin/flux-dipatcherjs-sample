@@ -17,7 +17,7 @@ var testAction = {
 
 
 // store
-var TestStore = {list: null};
+var testStore = {list: null};
 testDispatcher.register(function (payload) {
   if (payload.actionType === "test") {
     alert(payload.value);
@@ -43,6 +43,7 @@ var TestBox = React.createClass({displayName: "TestBox",
 
 var TestForm = React.createClass({displayName: "TestForm",
   send: function (e) {
+    e.preventDefault();
     var val = React.findDOMNode(this.refs.val).value.trim();
     testAction.test(val);
     React.findDOMNode(this.refs.val).value = "";
