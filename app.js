@@ -1,8 +1,11 @@
 var Dispatcher = require("flux").Dispatcher;
+var EventEmitter = require('events').EventEmitter;
+var assign = require('object-assign');
 var React = require("react");
 
 var testDispatcher = new Dispatcher();
 
+var CHANGE_EVENT = 'change';
 
 // action
 var testAction = {
@@ -20,6 +23,7 @@ var testStore = {list: null};
 testDispatcher.register(function (payload) {
   if (payload.actionType === "test") {
     alert(payload.value);
+    ReactClass.setState({value: payload.value});
   }
 });
 
@@ -34,7 +38,8 @@ var TestBox = React.createClass({
   render: function () {
     return (
       <div className="testBox">
-        <TestForm data={this.state.value} />
+        <TestForm />
+        <TestDisplay data={this.state.value} />
       </div>
     );
   }
@@ -54,6 +59,15 @@ var TestForm = React.createClass({
         <input type="text" ref="val" />
         <button onClick={this.send}>送信</button>
       </form>
+    );
+  }
+});
+
+var TestDisplay = React.createClass({
+  render: function () {
+    var message = this.props.data;
+    return (
+      <div>{message}</div>
     );
   }
 });
