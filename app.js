@@ -1,6 +1,6 @@
 var Dispatcher = require("flux").Dispatcher;
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
+var EventEmitter = require("events").EventEmitter;
+var assign = require("object-assign");
 var React = require("react");
 
 var testDispatcher = new Dispatcher();
@@ -17,31 +17,46 @@ var testAction = {
   }
 };
 
-
 // store
-var testStore = {list: null};
-testDispatcher.register(function (payload) {
-  if (payload.actionType === "test") {
-    alert(payload.value);
-    ReactClass.setState({value: payload.value});
-  }
+var _test = {value: null};
+
+var TestStore = assign({}, EventEmitter.prototype, {
+  getAll: function () {
+    return _test;
+  },
+  emitChange: function () {
+    this.emit(CHANGE_EVENT);
+  },
+  addChangeListener: function (callback) {
+    this.on(CHANGE_EVENT, callback);
+  },
+  dispatcherIndex: testDispatcher.register(function (payload) {
+    if (payload.actionType === "test") {
+      // console.log(payload.value);
+      _test.value = payload.value;
+      TestStore.emitChange();
+    }
+  })
 });
 
-
 // view
-var TestBox = React.createClass({
-  getInitialState() {
-    return {
-      value: ""
-    };
+var TestApp = React.createClass({
+  getInitialState: function () {
+    return TestStore.getAll();
+  },
+  componentDidMount: function() {
+    TestStore.addChangeListener(this._onChange);
   },
   render: function () {
     return (
-      <div className="testBox">
+      <div className="testApp">
         <TestForm />
         <TestDisplay data={this.state.value} />
       </div>
     );
+  },
+  _onChange: function() {
+    this.setState(TestStore.getAll());
   }
 });
 
@@ -73,6 +88,6 @@ var TestDisplay = React.createClass({
 });
 
 React.render(
-  <TestBox />,
+  <TestApp />,
   document.getElementById("content")
 );

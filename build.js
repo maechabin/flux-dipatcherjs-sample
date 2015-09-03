@@ -1,11 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Dispatcher = require("flux").Dispatcher;
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
+var EventEmitter = require("events").EventEmitter;
+var assign = require("object-assign");
 var React = require("react");
 
 var testDispatcher = new Dispatcher();
 
+var CHANGE_EVENT = 'change';
 
 // action
 var testAction = {
@@ -17,31 +18,46 @@ var testAction = {
   }
 };
 
-
 // store
-var testStore = {list: null};
-testDispatcher.register(function (payload) {
-  if (payload.actionType === "test") {
-    alert(payload.value);
-    ReactClass.setState({value: payload.value});
-  }
+var _test = {value: null};
+
+var TestStore = assign({}, EventEmitter.prototype, {
+  getAll: function () {
+    return _test;
+  },
+  emitChange: function () {
+    this.emit(CHANGE_EVENT);
+  },
+  addChangeListener: function (callback) {
+    this.on(CHANGE_EVENT, callback);
+  },
+  dispatcherIndex: testDispatcher.register(function (payload) {
+    if (payload.actionType === "test") {
+      // console.log(payload.value);
+      _test.value = payload.value;
+      TestStore.emitChange();
+    }
+  })
 });
 
-
 // view
-var TestBox = React.createClass({displayName: "TestBox",
-  getInitialState() {
-    return {
-      value: ""
-    };
+var TestApp = React.createClass({displayName: "TestApp",
+  getInitialState: function () {
+    return TestStore.getAll();
+  },
+  componentDidMount: function() {
+    TestStore.addChangeListener(this._onChange);
   },
   render: function () {
     return (
-      React.createElement("div", {className: "testBox"}, 
+      React.createElement("div", {className: "testApp"}, 
         React.createElement(TestForm, null), 
         React.createElement(TestDisplay, {data: this.state.value})
       )
     );
+  },
+  _onChange: function() {
+    this.setState(TestStore.getAll());
   }
 });
 
@@ -73,7 +89,7 @@ var TestDisplay = React.createClass({displayName: "TestDisplay",
 });
 
 React.render(
-  React.createElement(TestBox, null),
+  React.createElement(TestApp, null),
   document.getElementById("content")
 );
 
