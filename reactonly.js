@@ -4,13 +4,13 @@ var TestApp = React.createClass({
   getInitialState: function () {
     return {value: null};
   },
-  getInputState: function (val) {
+  setInputVal: function (val) {
     this.setState({value: val});
   },
   render: function () {
     return (
       <div className="testApp">
-        <TestForm onClickBtn={this.getInputState} />
+        <TestForm onClickBtn={this.setInputVal} />
         <TestDisplay data={this.state.value} />
       </div>
     );

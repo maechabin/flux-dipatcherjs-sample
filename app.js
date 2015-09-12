@@ -45,7 +45,10 @@ var TestApp = React.createClass({
     return TestStore.getAll();
   },
   componentDidMount: function() {
-    TestStore.addChangeListener(this._onChange);
+    var self = this;
+    TestStore.addChangeListener(function () {
+      self.setState(TestStore.getAll());
+    });
   },
   render: function () {
     return (
@@ -54,9 +57,6 @@ var TestApp = React.createClass({
         <TestDisplay data={this.state.value} />
       </div>
     );
-  },
-  _onChange: function() {
-    this.setState(TestStore.getAll());
   }
 });
 
