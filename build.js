@@ -6,10 +6,10 @@ var React = require("react");
 
 var testDispatcher = new Dispatcher();
 
-var CHANGE_EVENT = 'change';
+var CHANGE_EVENT = "change";
 
 // action
-var testAction = {
+var TestAction = {
   test: function (val) {
     testDispatcher.dispatch({
       actionType: "test",
@@ -65,7 +65,7 @@ var TestForm = React.createClass({displayName: "TestForm",
   send: function (e) {
     e.preventDefault();
     var val = React.findDOMNode(this.refs.val).value.trim();
-    testAction.test(val);
+    TestAction.test(val);
     React.findDOMNode(this.refs.val).value = "";
     return;
   },
