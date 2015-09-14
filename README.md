@@ -11,7 +11,7 @@ http://jsrun.it/maechabin/27Bi
 
 ## サンプルソース
 - [app.js](https://github.com/maechabin/flux-dipatcherjs-sample/blob/master/app.js)
-- [index.html](https://github.com/maechabin/flux-dipatcherjs-sample/blob/master/html.js)
+- [index.html](https://github.com/maechabin/flux-dipatcherjs-sample/blob/master/index.html)
 
 ## サンプルの確認
 
