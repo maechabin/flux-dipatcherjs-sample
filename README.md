@@ -10,7 +10,8 @@ FluxでのReact実装サンプル（かなり簡易版）
 http://jsrun.it/maechabin/27Bi
 
 ## サンプルソース
-[app.js](https://github.com/maechabin/flux-dipatcherjs-sample/blob/master/app.js)
+- [app.js](https://github.com/maechabin/flux-dipatcherjs-sample/blob/master/app.js)
+- [index.html](https://github.com/maechabin/flux-dipatcherjs-sample/blob/master/html.js)
 
 ## サンプルの確認
 
@@ -37,7 +38,7 @@ $ open index.html
 $ browserify app.js -o build.js
 ~~~
 
-※browserifyがインストールされていない場合は、以下コマンドでインストール
+※browserifyがシステムにインストールされていない場合は、以下コマンドでインストール
 ~~~
 $ npm install -g browserify
 ~~~
