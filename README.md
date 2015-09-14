@@ -14,30 +14,35 @@ http://jsrun.it/maechabin/27Bi
 
 ## サンプルの確認
 
-### サンプルのダウンロード
+### 1. サンプルのダウンロード
 ~~~
 $ git clone git@github.com:maechabin/flux-dipatcherjs-sample.git flux-sample
 ~~~
 
-### サンプルをcloneしたディレクトリに移動して、必要なパッケージのインストール
+### 2. サンプルをcloneしたディレクトリに移動して、必要なパッケージのインストール
 ~~~
 $ cd flux-sample
 $ npm install
 ~~~
 
-### サンプルを開く
+### 3. サンプルを開く
 ~~~
 $ open index.html
 ~~~
 
 ## サンプルの修正
 
-### 「app.js」を修正したら、以下のコマンドを実行
+### 1. 「app.js」を修正したら、以下のコマンドを実行
 ~~~
 $ browserify app.js -o build.js
 ~~~
 
-### サンプルを開く
+※browserifyがインストールされていない場合は、以下コマンドでインストール
+~~~
+$ npm install -g browserify
+~~~
+
+### 2. サンプルを開く
 ~~~
 $ open index.html
 ~~~
