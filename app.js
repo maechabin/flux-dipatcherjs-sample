@@ -6,13 +6,15 @@ var React = require("react");
 var testDispatcher = new Dispatcher();
 
 var CHANGE_EVENT = "change";
-var TEST = "test";
+var constant = {
+  TEST: "test"
+};
 
 // action
 var TestAction = {
   test: function (val) {
     testDispatcher.dispatch({
-      actionType: TEST,
+      actionType: constant.TEST,
       value: val
     });
   }
@@ -32,7 +34,7 @@ var TestStore = assign({}, EventEmitter.prototype, {
     this.on(CHANGE_EVENT, callback);
   },
   dispatcherIndex: testDispatcher.register(function (payload) {
-    if (payload.actionType === TEST) {
+    if (payload.actionType === constant.TEST) {
       // console.log(payload.value);
       _test.value = payload.value;
       TestStore.emitChange();
