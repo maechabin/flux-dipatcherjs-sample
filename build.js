@@ -7,14 +7,16 @@ var React = require("react");
 var testDispatcher = new Dispatcher();
 
 var CHANGE_EVENT = "change";
-var TEST = "test";
+var testConstants = {
+  TEST: "test"
+};
 
 // action
 var TestAction = {
-  test: function (val) {
+  test: function (testValue) {
     testDispatcher.dispatch({
-      actionType: TEST,
-      value: val
+      actionType: testConstants.TEST,
+      value: testValue
     });
   }
 };
@@ -33,7 +35,7 @@ var TestStore = assign({}, EventEmitter.prototype, {
     this.on(CHANGE_EVENT, callback);
   },
   dispatcherIndex: testDispatcher.register(function (payload) {
-    if (payload.actionType === TEST) {
+    if (payload.actionType === testConstants.TEST) {
       // console.log(payload.value);
       _test.value = payload.value;
       TestStore.emitChange();
@@ -65,15 +67,15 @@ var TestApp = React.createClass({displayName: "TestApp",
 var TestForm = React.createClass({displayName: "TestForm",
   send: function (e) {
     e.preventDefault();
-    var val = React.findDOMNode(this.refs.val).value.trim();
-    TestAction.test(val);
-    React.findDOMNode(this.refs.val).value = "";
+    var testValue = React.findDOMNode(this.refs.test_value).value.trim();
+    TestAction.test(testValue);
+    React.findDOMNode(this.refs.test_value).value = "";
     return;
   },
   render: function () {
     return (
       React.createElement("form", null, 
-        React.createElement("input", {type: "text", ref: "val"}), 
+        React.createElement("input", {type: "text", ref: "test_value"}), 
         React.createElement("button", {onClick: this.send}, "送信")
       )
     );

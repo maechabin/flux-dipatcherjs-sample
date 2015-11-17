@@ -6,16 +6,16 @@ var React = require("react");
 var testDispatcher = new Dispatcher();
 
 var CHANGE_EVENT = "change";
-var constant = {
+var testConstants = {
   TEST: "test"
 };
 
 // action
 var TestAction = {
-  test: function (val) {
+  test: function (testValue) {
     testDispatcher.dispatch({
-      actionType: constant.TEST,
-      value: val
+      actionType: testConstants.TEST,
+      value: testValue
     });
   }
 };
@@ -34,7 +34,7 @@ var TestStore = assign({}, EventEmitter.prototype, {
     this.on(CHANGE_EVENT, callback);
   },
   dispatcherIndex: testDispatcher.register(function (payload) {
-    if (payload.actionType === constant.TEST) {
+    if (payload.actionType === testConstants.TEST) {
       // console.log(payload.value);
       _test.value = payload.value;
       TestStore.emitChange();
@@ -66,15 +66,15 @@ var TestApp = React.createClass({
 var TestForm = React.createClass({
   send: function (e) {
     e.preventDefault();
-    var val = React.findDOMNode(this.refs.val).value.trim();
-    TestAction.test(val);
-    React.findDOMNode(this.refs.val).value = "";
+    var testValue = React.findDOMNode(this.refs.test_value).value.trim();
+    TestAction.test(testValue);
+    React.findDOMNode(this.refs.test_value).value = "";
     return;
   },
   render: function () {
     return (
       <form>
-        <input type="text" ref="val" />
+        <input type="text" ref="test_value" />
         <button onClick={this.send}>送信</button>
       </form>
     );
