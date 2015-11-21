@@ -1,17 +1,21 @@
 {
-  "name": "flux-dispatdher",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "name": "flux-dispatcher",
+  "version": "1.0.1",
+  "description": "a sample of the flux-dispatcher",
+  "main": "./dist/flux-build.js",
   "scripts": {
+    "react": "browserify ./src/react-app.js -o ./dist/react-build.js",
+    "flux": "browserify ./src/flux-app.js -o ./dist/flux-build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "@maechabin",
+  "license": "MIT license",
   "dependencies": {
     "flux": "^2.1.1",
     "object-assign": "^4.0.1",
-    "react": "^0.13.3",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
     "reactify": "^1.1.1"
   },
   "browserify": {

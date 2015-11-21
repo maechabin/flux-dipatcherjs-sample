@@ -19723,13 +19723,13 @@ var TestApp = React.createClass({displayName: "TestApp",
   getInitialState: function () {
     return {value: null};
   },
-  getInputState: function (val) {
-    this.setState({value: val});
+  setInputVal: function (testValue) {
+    this.setState({value: testValue});
   },
   render: function () {
     return (
       React.createElement("div", {className: "testApp"}, 
-        React.createElement(TestForm, {onClickBtn: this.getInputState}), 
+        React.createElement(TestForm, {onClickBtn: this.setInputVal}), 
         React.createElement(TestDisplay, {data: this.state.value})
       )
     );
@@ -19739,15 +19739,15 @@ var TestApp = React.createClass({displayName: "TestApp",
 var TestForm = React.createClass({displayName: "TestForm",
   send: function (e) {
     e.preventDefault();
-    var val = React.findDOMNode(this.refs.val).value.trim();
-    this.props.onClickBtn(val);
-    React.findDOMNode(this.refs.val).value = "";
+    var testValue = React.findDOMNode(this.refs.test_value).value.trim();
+    this.props.onClickBtn(testValue);
+    React.findDOMNode(this.refs.test_value).value = "";
     return;
   },
   render: function () {
     return (
       React.createElement("form", null, 
-        React.createElement("input", {type: "text", ref: "val"}), 
+        React.createElement("input", {type: "text", ref: "test_value"}), 
         React.createElement("button", {onClick: this.send}, "送信")
       )
     );

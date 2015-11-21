@@ -4,8 +4,8 @@ var TestApp = React.createClass({
   getInitialState: function () {
     return {value: null};
   },
-  setInputVal: function (val) {
-    this.setState({value: val});
+  setInputVal: function (testValue) {
+    this.setState({value: testValue});
   },
   render: function () {
     return (
@@ -20,15 +20,15 @@ var TestApp = React.createClass({
 var TestForm = React.createClass({
   send: function (e) {
     e.preventDefault();
-    var val = React.findDOMNode(this.refs.val).value.trim();
-    this.props.onClickBtn(val);
-    React.findDOMNode(this.refs.val).value = "";
+    var testValue = React.findDOMNode(this.refs.test_value).value.trim();
+    this.props.onClickBtn(testValue);
+    React.findDOMNode(this.refs.test_value).value = "";
     return;
   },
   render: function () {
     return (
       <form>
-        <input type="text" ref="val" />
+        <input type="text" ref="test_value" />
         <button onClick={this.send}>送信</button>
       </form>
     );
